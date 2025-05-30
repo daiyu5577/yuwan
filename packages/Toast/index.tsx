@@ -96,5 +96,5 @@ export default function Toast() {
   );
 }
 
-Toast.show = (params: ToastInfo) => { }
+Toast.show = (_params: ToastInfo) => { }
 Toast.closeAll = () => { }

@@ -12,12 +12,15 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'packages/index.ts'),
-      name: 'yuwan',
-      fileName: 'main',
+      name: 'Yuwan',
+      fileName: (format, _entryName) => `index.${format}.js`,
+      cssFileName: 'index',
+      formats: ['umd', 'es'],
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
+        format: 'umd',
         globals: {
           React: 'React',
           'react-dom': 'ReactDOM',

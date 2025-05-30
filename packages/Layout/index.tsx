@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, createContext } from "react";
 import Toast from "../Toast";
+import type Themes from '../theme.d'
 
 interface LayoutContextProps {
   upSign: number
@@ -15,10 +16,11 @@ export const LayoutContext = createContext<LayoutContextProps>({
 
 interface LayoutProps {
   children?: React.ReactNode;
+  themes?: Themes;
 }
 const Layout = (props: LayoutProps) => {
 
-  const { children } = props
+  const { children, themes = {} } = props
 
   const [isReload, setIsReload] = useState(false)
   const [upSign, setUpSign] = useState(0)
@@ -34,6 +36,10 @@ const Layout = (props: LayoutProps) => {
     }, 100)
   }
 
+  const styles = Object.entries(themes).map(([key, value]) => {
+    return `${key}: ${value};`
+  }).join('')
+
   return (
     <LayoutContext.Provider value={{
       upSign,
@@ -42,6 +48,7 @@ const Layout = (props: LayoutProps) => {
     }}>
       {!isReload && children}
       <Toast />
+      <style>{`:root { ${styles} }`}</style>
     </LayoutContext.Provider>
   );
 };

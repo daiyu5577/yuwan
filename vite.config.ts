@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import babel from '@rollup/plugin-babel';
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 // const __dirname = new URL('../', import.meta.url).pathname
@@ -9,6 +10,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    host: '0.0.0.0',
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'packages/index.ts'),
@@ -26,6 +30,22 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
         },
       },
+      plugins: [
+        babel({
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                useBuiltIns: 'usage',
+                corejs: 2,
+                targets: {
+                  chrome: '40',
+                },
+              },
+            ],
+          ],
+        }),
+      ]
     },
   },
 })

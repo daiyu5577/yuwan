@@ -9,7 +9,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
   server: {
     host: '0.0.0.0',
   },
@@ -29,23 +28,38 @@ export default defineConfig({
           React: 'React',
           'react-dom': 'ReactDOM',
         },
-      },
-      plugins: [
-        babel({
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                useBuiltIns: 'usage',
-                corejs: 2,
-                targets: {
-                  chrome: '40',
-                },
-              },
-            ],
-          ],
-        }),
-      ]
+      }
     },
   },
+  plugins: [
+    react(),
+    babel({
+      babelHelpers: 'runtime',
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            useBuiltIns: 'usage',
+            corejs: {
+              version: "3.42.0",
+              proposals: true
+            },
+            targets: {
+              chrome: '40',
+            },
+          },
+        ],
+      ],
+      plugins: [
+        [
+          "@babel/plugin-transform-runtime",
+          {
+            corejs: 3,
+            proposals: true
+          }
+        ]
+      ]
+    }),
+  ],
 })

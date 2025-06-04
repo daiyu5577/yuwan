@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, createContext } from "react";
 import Toast from "../Toast";
-import type Themes from '../theme.d'
-
+export interface Themes {
+  '--tost-duration': string
+}
 interface LayoutContextProps {
   upSign: number
   layoutReload: () => void

@@ -2,7 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import babel from '@rollup/plugin-babel';
+import babel from '@rollup/plugin-babel'
+// @ts-ignore
+import dts from 'unplugin-dts/vite'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 // const __dirname = new URL('../', import.meta.url).pathname
@@ -32,6 +34,10 @@ export default defineConfig({
     },
   },
   plugins: [
+    dts({
+      bundleTypes: true,
+      tsconfigPath: './tsconfig.app.json'
+    }),
     react(),
     babel({
       babelHelpers: 'runtime',

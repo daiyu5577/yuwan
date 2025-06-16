@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Yuwan, Toast } from '../packages'
+import { Layout, Toast } from '../packages'
 
 const App = () => {
   const handleShowToast = () => {
@@ -15,8 +15,8 @@ const App = () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Yuwan>
+    <Layout>
       <App />
-    </Yuwan>
+    </Layout>
   </StrictMode>,
 )

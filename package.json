@@ -1,7 +1,6 @@
 {
-  "name": "yuwan-react",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@daiyu-5577/yuwan-react",
+  "version": "0.0.1",
   "type": "module",
   "files": [
     "dist"

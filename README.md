@@ -2,7 +2,7 @@
 
 #### install
 ```javascript
-pnpm add yuwan-react
+pnpm add npm i @daiyu-5577/yuwan-react
 ```
 
 #### usage

@@ -23,9 +23,8 @@ export default defineConfig({
       formats: ['umd', 'es'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', /@babel\/runtime/],
       output: {
-        format: 'umd',
         globals: {
           React: 'React',
           'react-dom': 'ReactDOM',
@@ -40,6 +39,7 @@ export default defineConfig({
     }),
     react(),
     babel({
+      exclude: /node_modules/,
       babelHelpers: 'runtime',
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
       presets: [
@@ -52,7 +52,7 @@ export default defineConfig({
               proposals: true
             },
             targets: {
-              chrome: '40',
+              chrome: '45',
             },
           },
         ],
@@ -62,7 +62,8 @@ export default defineConfig({
           "@babel/plugin-transform-runtime",
           {
             corejs: 3,
-            proposals: true
+            proposals: true,
+            version: '^7.27.4',
           }
         ]
       ]

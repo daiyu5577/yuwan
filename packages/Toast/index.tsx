@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { generateUid } from '../utils/index'
 import styles from './index.module.less'
 
 interface ToastInfo {
   children: React.ReactNode
   duration?: number
-  id?: string
+  id: string
 }
 
 interface ToastItemParams {
@@ -52,9 +53,9 @@ export default function Toast() {
   const [list, setList] = useState<(ToastInfo)[]>([])
 
   // show
-  const show = (params: ToastInfo) => {
+  const show = (params: Exclude<ToastInfo, 'id'>) => {
     const { duration = 1000 } = params
-    const id = `${Date.now()}`
+    const id = generateUid('toast')
     const close = () => {
       setList((list) => {
         return list.filter((v) => v.id !== id)
@@ -62,9 +63,9 @@ export default function Toast() {
     }
     setList((list) => {
       return [...list, {
-        id,
-        duration,
         ...params,
+        duration,
+        id,
       }]
     })
     if (duration == Infinity) return close
@@ -84,11 +85,11 @@ export default function Toast() {
   return createPortal(
     <React.Fragment>
       {
-        list.map((v, i) => (
+        list.map(v => (
           <ToastItem
             toastInfo={v}
             setList={setList}
-            key={i} />
+            key={v?.id} />
         ))
       }
     </React.Fragment>,

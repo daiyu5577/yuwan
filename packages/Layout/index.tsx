@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, createContext } from "react";
+import React, { useState, useRef, useEffect, createContext, useContext } from "react";
 import Toast from "../Toast";
 export interface Themes {
   '--tost-duration': string
@@ -9,19 +9,24 @@ interface LayoutContextProps {
   layoutUpdate: () => void
 }
 
-export const LayoutContext = createContext<LayoutContextProps>({
+const LayoutContext = createContext<LayoutContextProps>({
   upSign: 0,
   layoutUpdate: () => { },
   layoutReload: () => { },
 })
 
+export const useLayout = () => {
+  return useContext(LayoutContext)
+}
+
 interface LayoutProps {
-  children?: React.ReactNode;
-  themes?: Themes;
+  children?: React.ReactNode
+  themes?: Themes
+  reLoadDuration?: number
 }
 const Layout = (props: LayoutProps) => {
 
-  const { children, themes = {} } = props
+  const { children, themes = {}, reLoadDuration = 100 } = props
 
   const [isReload, setIsReload] = useState(false)
   const [upSign, setUpSign] = useState(0)
@@ -34,7 +39,7 @@ const Layout = (props: LayoutProps) => {
     setIsReload(true)
     setTimeout(() => {
       setIsReload(false)
-    }, 100)
+    }, reLoadDuration)
   }
 
   const styles = Object.entries(themes).map(([key, value]) => {

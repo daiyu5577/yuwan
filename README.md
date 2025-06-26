@@ -1,13 +1,21 @@
 ### Yuwan React Component
 
+- [Yuwan React Component](#yuwan-react-component)
+  - [install](#install)
+  - [usage](#usage)
+  - [Components](#components)
+    - [Layout](#layout)
+    - [Toast](#toast)
+
 #### install
 ```javascript
-pnpm add npm i @daiyu-5577/yuwan-react
+pnpm add @daiyu-5577/yuwan-react
 ```
 
 #### usage
 ```javascript
-import { Layout, Toast } from 'yuwan-react'
+import { Layout as Yuwan, Toast } from 'yuwan-react'
+import '@daiyu-5577/yuwan-react/index.css'
 
 const App = () => {
   const handleShowToast = () => {
@@ -16,9 +24,34 @@ const App = () => {
     })
   }
   return (
-    <Layout>
+    <Yuwan>
       <button onClick={handleShowToast}>click</button>
-    </Layout>
+    </Yuwan>
   )
 }
 ```
+
+#### Components
+
+##### Layout
+```javascript
+import { App } from './App'
+import { Layout as Yuwan } from 'yuwan-react'
+import '@daiyu-5577/yuwan-react/index.css'
+
+const App = () => {
+  return (
+    <Yuwan>
+      <App />
+    </Yuwan>
+  )
+}
+```
+
+##### Toast
+* Methods
+  * show
+    * children: ReactNode
+    * duration: number
+  * closeAll
+

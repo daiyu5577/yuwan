@@ -38,74 +38,72 @@ export default defineConfig({
       tsconfigPath: './tsconfig.app.json'
     }),
     react({
-      // babel: {
-      //   include(filename: string | undefined, context: any) {
-      //     console.log(111)
-      //     console.log(filename)
-      //     console.log(context)
-      //     return true
-      //   },
-      //   presets: [
-      //     [
-      //       '@babel/preset-env',
-      //       {
-      //         modules: false,
-      //         useBuiltIns: 'usage',
-      //         corejs: {
-      //           version: "3.42.0",
-      //           proposals: true
-      //         },
-      //         targets: {
-      //           chrome: '45',
-      //         },
-      //       },
-      //     ],
-      //   ],
-      //   plugins: [
-      //     [
-      //       "@babel/plugin-transform-runtime",
-      //       {
-      //         corejs: 3,
-      //         proposals: true,
-      //         version: '^7.27.4',
-      //       }
-      //     ]
-      //   ]
-      // }
-    }),
-    babel({
-      // exclude: /node_modules/,
-      babelHelpers: 'bundled',
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false,
-            useBuiltIns: 'usage',
-            corejs: {
-              version: "3.42.0",
-              proposals: true
+      babel: {
+        include(filename: string | undefined, context: any) {
+          console.log('filename', filename)
+          return true
+        },
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              modules: false,
+              useBuiltIns: 'usage',
+              corejs: {
+                version: "3.42.0",
+                proposals: true
+              },
+              targets: {
+                chrome: '45',
+              },
             },
-            targets: {
-              chrome: '45',
-            },
-          },
+          ],
         ],
-      ],
-      plugins: [
-        [
-          "@babel/plugin-transform-runtime",
-          {
-            corejs: {
-              version: 3,
-              proposals: true
-            },
-            helpers: false,
-            version: '^7.27.4',
-          }
+        plugins: [
+          [
+            "@babel/plugin-transform-runtime",
+            {
+              corejs: 3,
+              proposals: true,
+              version: '^7.27.4',
+            }
+          ]
         ]
-      ]
+      }
     }),
+    // babel({
+    //   // exclude: /node_modules/,
+    //   babelHelpers: 'bundled',
+    //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    //   presets: [
+    //     [
+    //       '@babel/preset-env',
+    //       {
+    //         modules: false,
+    //         useBuiltIns: 'usage',
+    //         corejs: {
+    //           version: "3.42.0",
+    //           proposals: true
+    //         },
+    //         targets: {
+    //           chrome: '45',
+    //         },
+    //       },
+    //     ],
+    //   ],
+    //   plugins: [
+    //     [
+    //       "@babel/plugin-transform-runtime",
+    //       {
+    //         corejs: {
+    //           version: 3,
+    //           proposals: true
+    //         },
+    //         helpers: false,
+    //         version: '^7.27.4',
+    //       }
+    //     ]
+    //   ]
+    // }),
   ],
 })

@@ -23,7 +23,7 @@ export default defineConfig({
       formats: ['umd', 'es'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', /@babel\/runtime/],
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           React: 'React',
@@ -37,15 +37,51 @@ export default defineConfig({
       bundleTypes: true,
       tsconfigPath: './tsconfig.app.json'
     }),
-    react(),
+    react({
+      // babel: {
+      //   include(filename: string | undefined, context: any) {
+      //     console.log(111)
+      //     console.log(filename)
+      //     console.log(context)
+      //     return true
+      //   },
+      //   presets: [
+      //     [
+      //       '@babel/preset-env',
+      //       {
+      //         modules: false,
+      //         useBuiltIns: 'usage',
+      //         corejs: {
+      //           version: "3.42.0",
+      //           proposals: true
+      //         },
+      //         targets: {
+      //           chrome: '45',
+      //         },
+      //       },
+      //     ],
+      //   ],
+      //   plugins: [
+      //     [
+      //       "@babel/plugin-transform-runtime",
+      //       {
+      //         corejs: 3,
+      //         proposals: true,
+      //         version: '^7.27.4',
+      //       }
+      //     ]
+      //   ]
+      // }
+    }),
     babel({
-      exclude: /node_modules/,
-      babelHelpers: 'runtime',
+      // exclude: /node_modules/,
+      babelHelpers: 'bundled',
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
       presets: [
         [
           '@babel/preset-env',
           {
+            modules: false,
             useBuiltIns: 'usage',
             corejs: {
               version: "3.42.0",
@@ -61,8 +97,11 @@ export default defineConfig({
         [
           "@babel/plugin-transform-runtime",
           {
-            corejs: 3,
-            proposals: true,
+            corejs: {
+              version: 3,
+              proposals: true
+            },
+            helpers: false,
             version: '^7.27.4',
           }
         ]

@@ -53,9 +53,9 @@ export default function Toast() {
   const [list, setList] = useState<(ToastInfo)[]>([])
 
   // show
-  const show = (params: Exclude<ToastInfo, 'id'>) => {
+  const show = (params: Omit<ToastInfo, 'id'>) => {
     const { duration = 1000 } = params
-    const id = generateUid('toast')
+    const id = generateUid('toast').padEnd(10, '0')
     const close = () => {
       setList((list) => {
         return list.filter((v) => v.id !== id)
@@ -97,5 +97,5 @@ export default function Toast() {
   );
 }
 
-Toast.show = (_params: ToastInfo) => { }
+Toast.show = (_params: Omit<ToastInfo, 'id'>) => { }
 Toast.closeAll = () => { }

@@ -3,13 +3,23 @@ import { createRoot } from 'react-dom/client'
 import { Layout, Toast } from '../packages'
 
 const App = () => {
-  const handleShowToast = () => {
-    Toast.show({
+  const handleShowMessage = () => {
+    Toast.message({
       children: <div>hellow world</div>,
     })
   }
+
+  const handleShowLoading = () => {
+    Toast.loading({
+      duration: Infinity,
+      isDisabledClick: false
+    })
+  }
   return (
-    <button onClick={handleShowToast}>点击</button>
+    <div>
+      <button onClick={handleShowMessage}>message</button>
+      <button onClick={handleShowLoading}>loading</button>
+    </div>
   )
 }
 

@@ -1,18 +1,38 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import classnames from "classnames"
 import { generateUid } from '../utils/index'
 import styles from './index.module.less'
 
 interface ToastInfo {
-  children: React.ReactNode
-  duration?: number
   id: string
+  type: 'message' | 'loading'
+  children?: React.ReactNode
+  duration?: number
+  isShowMask?: boolean
+  isDisabledClick?: boolean
 }
 
 interface ToastItemParams {
   toastInfo: ToastInfo
   setList: React.Dispatch<React.SetStateAction<ToastInfo[]>>
 }
+
+const SvgLoading = (params: { width: number, height: number, stroke?: string, strokeWidth?: number }) => {
+  const { width, height, stroke = "#fff", strokeWidth = 4 } = params
+  return (
+    <svg width={width} height={height} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d={`M5 25 A20 20 0 0 1 45 25 A20 20 0 0 1 25 45`}
+        fill="none"
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+      ></path>
+    </svg>
+  )
+}
+
 
 function ToastItem(params: ToastItemParams) {
 
@@ -42,8 +62,23 @@ function ToastItem(params: ToastItemParams) {
   }, [])
 
   return (
-    <div ref={itemDom} className={`yw_toast ${styles.toast} ${isHiden ? `${styles.toastHide}` : ''}`}>
-      {toastInfo.children}
+    <div className={classnames(
+      `${styles.mask}`,
+      {
+        'yw-mask-hidden': !toastInfo?.isShowMask,
+        'yw-mask-disabled': !!toastInfo?.isDisabledClick
+      })}>
+      <div ref={itemDom} className={`yw-toast ${isHiden ? `yw-toast-hidden` : ''}`}>
+        {
+          toastInfo?.type == 'loading' ?
+            !!toastInfo?.children ?
+              toastInfo.children :
+              <div className="yw-toast-loading">
+                <SvgLoading width={50} height={50} />
+              </div> :
+            toastInfo.children
+        }
+      </div>
     </div>
   )
 }
@@ -52,10 +87,10 @@ export default function Toast() {
 
   const [list, setList] = useState<(ToastInfo)[]>([])
 
-  // show
-  const show = (params: Omit<ToastInfo, 'id'>) => {
+  // message
+  const message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
     const { duration = 1000 } = params
-    const id = generateUid('toast').padEnd(10, '0')
+    const id = generateUid('toast')
     const close = () => {
       setList((list) => {
         return list.filter((v) => v.id !== id)
@@ -65,6 +100,27 @@ export default function Toast() {
       return [...list, {
         ...params,
         duration,
+        type: 'message',
+        id,
+      }]
+    })
+    if (duration == Infinity) return close
+  }
+
+  // loading
+  const loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+    const { duration = 1000 } = params
+    const id = generateUid('toast')
+    const close = () => {
+      setList((list) => {
+        return list.filter((v) => v.id !== id)
+      })
+    }
+    setList((list) => {
+      return [...list, {
+        ...params,
+        duration,
+        type: 'loading',
         id,
       }]
     })
@@ -77,7 +133,8 @@ export default function Toast() {
   }
 
   useEffect(() => {
-    Toast.show = show
+    Toast.message = message
+    Toast.loading = loading
     Toast.closeAll = closeAll
   }, [])
 
@@ -97,5 +154,6 @@ export default function Toast() {
   );
 }
 
-Toast.show = (_params: Omit<ToastInfo, 'id'>) => { }
+Toast.message = (_params: Omit<ToastInfo, 'id' | 'type'>) => { }
+Toast.loading = (_params: Omit<ToastInfo, 'id' | 'type'>) => { }
 Toast.closeAll = () => { }

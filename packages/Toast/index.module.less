@@ -1,45 +1,61 @@
-@keyframes show {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.9);
-  }
+@import url(../css/animation.less);
 
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-}
-
-@keyframes hiden {
-  0% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.9);
-  }
-}
-
-.toast {
+.mask {
   position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  border-radius: 6px;
-  z-index: 9999;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
 
-  &:local {
-    animation: show var(--tost-duration) ease-out;
+  &:global.yw-mask-hidden {
+    background-color: unset;
+    pointer-events: none;
   }
-}
 
-.toastHide {
+  &:global.yw-mask-disabled {
+    pointer-events: unset;
+  }
+
   &:local {
-    animation: hiden var(--tost-duration) ease-out forwards;
+    animation: opacity var(--tost-duration)s ease-out;
+  }
+
+  :global {
+    .yw-toast {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 5px 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border-radius: 6px;
+      z-index: 999;
+
+      &:local {
+        animation: toast-show var(--tost-duration) ease-out;
+      }
+
+      .yw-toast-loading {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        >svg {
+          &:local {
+            animation: rotateZ-360 1s linear infinite;
+          }
+        }
+      }
+    }
+
+    .yw-toast-hidden {
+      &:local {
+        animation: toast-hiden var(--tost-duration) ease-out forwards;
+      }
+    }
   }
 }

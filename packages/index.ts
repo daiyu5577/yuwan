@@ -1,3 +1,4 @@
 import './index.less'
 export { default as Layout, useLayout } from './Layout'
 export { default as Toast, SvgLoading } from './Toast'
+export { default as Space } from './Space'

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Layout, Toast } from '../packages'
+import { Layout, Toast, Space } from '../packages'
 
 const App = () => {
   const handleShowMessage = () => {
@@ -11,14 +11,17 @@ const App = () => {
 
   const handleShowLoading = () => {
     Toast.loading({
-      duration: Infinity,
+      // duration: Infinity,
+      duration: 1000,
       isDisabledClick: true
     })
   }
   return (
     <div>
-      <button onClick={handleShowMessage}>message</button>
-      <button onClick={handleShowLoading}>loading</button>
+      <Space colGap='10px' rowGap='10px'>
+        <button onClick={handleShowMessage}>message</button>
+        <button onClick={handleShowLoading}>loading</button>
+      </Space>
     </div>
   )
 }

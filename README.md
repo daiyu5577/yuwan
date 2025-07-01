@@ -8,6 +8,7 @@
     - [Toast](#toast)
   - [Types](#types)
     - [ToastParams](#toastparams)
+  - [SpaceProps](#spaceprops)
 
 #### install
 ```javascript
@@ -69,7 +70,15 @@ const App = () => {
 #### Types
 
 ##### ToastParams
-  * children: ReactNode
-  * duration: number
-  * isShowMask: boolean
-  * isDisabledClick: boolean  
+  * children?: ReactNode
+  * duration?: number
+  * isShowMask?: boolean
+  * isDisabledClick?: boolean  
+
+#### SpaceProps
+  * wrap?: boolean
+  * rowGap?: string
+  * colGap?: string
+  * children?: React.ReactNode
+  * className?: string
+

@@ -18,12 +18,12 @@ interface ToastItemParams {
   setList: React.Dispatch<React.SetStateAction<ToastInfo[]>>
 }
 
-const SvgLoading = (params: { width: number, height: number, stroke?: string, strokeWidth?: number }) => {
-  const { width, height, stroke = "#fff", strokeWidth = 4 } = params
+export const SvgLoading = (params: { width?: number, height?: number, stroke?: string, strokeWidth?: number }) => {
+  const { width = 50, height = 50, stroke = "#fff", strokeWidth = 4 } = params
   return (
-    <svg width={width} height={height} viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} xmlns="http://www.w3.org/2000/svg">
       <path
-        d={`M5 25 A20 20 0 0 1 45 25 A20 20 0 0 1 25 45`}
+        d={`M${strokeWidth} ${height / 2} A${(width - 2 * strokeWidth) / 2} ${(height - 2 * strokeWidth) / 2} 0 0 1 ${width - strokeWidth} ${height / 2} A${(width - 2 * strokeWidth) / 2} ${(height - 2 * strokeWidth) / 2} 0 0 1 ${width / 2} ${height - strokeWidth}`}
         fill="none"
         stroke={stroke}
         strokeWidth={strokeWidth}
@@ -74,9 +74,9 @@ function ToastItem(params: ToastItemParams) {
             !!toastInfo?.children ?
               toastInfo.children :
               <div className="yw-toast-loading">
-                <SvgLoading width={50} height={50} />
+                <SvgLoading />
               </div> :
-            toastInfo.children
+            toastInfo.children || <></>
         }
       </div>
     </div>
@@ -88,7 +88,7 @@ export default function Toast() {
   const [list, setList] = useState<(ToastInfo)[]>([])
 
   // message
-  const message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+  const message = (params: Omit<ToastInfo, 'id' | 'type'>, type: 'message' | 'loading') => {
     const { duration = 1000 } = params
     const id = generateUid('toast')
     const close = () => {
@@ -100,27 +100,7 @@ export default function Toast() {
       return [...list, {
         ...params,
         duration,
-        type: 'message',
-        id,
-      }]
-    })
-    if (duration == Infinity) return close
-  }
-
-  // loading
-  const loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
-    const { duration = 1000 } = params
-    const id = generateUid('toast')
-    const close = () => {
-      setList((list) => {
-        return list.filter((v) => v.id !== id)
-      })
-    }
-    setList((list) => {
-      return [...list, {
-        ...params,
-        duration,
-        type: 'loading',
+        type,
         id,
       }]
     })
@@ -133,8 +113,12 @@ export default function Toast() {
   }
 
   useEffect(() => {
-    Toast.message = message
-    Toast.loading = loading
+    Toast.message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+      message(params, 'message')
+    }
+    Toast.loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+      message(params, 'loading')
+    }
     Toast.closeAll = closeAll
   }, [])
 

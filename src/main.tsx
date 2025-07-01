@@ -12,7 +12,7 @@ const App = () => {
   const handleShowLoading = () => {
     Toast.loading({
       duration: Infinity,
-      isDisabledClick: false
+      isDisabledClick: true
     })
   }
   return (

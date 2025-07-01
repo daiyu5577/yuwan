@@ -6,6 +6,8 @@
   - [Components](#components)
     - [Layout](#layout)
     - [Toast](#toast)
+  - [Types](#types)
+    - [ToastParams](#toastparams)
 
 #### install
 ```javascript
@@ -18,14 +20,21 @@ import { Layout as Yuwan, Toast } from 'yuwan-react'
 import '@daiyu-5577/yuwan-react/index.css'
 
 const App = () => {
-  const handleShowToast = () => {
-    Toast.show({
+  const handleShowMessage = () => {
+    Toast.message({
       children: <div>hellow world</div>,
+    })
+  }
+  const handleShowLoading = () => {
+    Toast.loading({
+      duration: Infinity,
+      isDisabledClick: true
     })
   }
   return (
     <Yuwan>
-      <button onClick={handleShowToast}>click</button>
+      <button onClick={handleShowMessage}>click message</button>
+      <button onClick={handleShowLoading}>click loading</button>
     </Yuwan>
   )
 }
@@ -50,8 +59,17 @@ const App = () => {
 
 ##### Toast
 * Methods
-  * show
-    * children: ReactNode
-    * duration: number
+  * message
+    * [ToastParams](#ToastParams)
+  * loading
+    * [ToastParams](#ToastParams)
   * closeAll
 
+
+#### Types
+
+##### ToastParams
+  * children: ReactNode
+  * duration: number
+  * isShowMask: boolean
+  * isDisabledClick: boolean  

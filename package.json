@@ -1,6 +1,6 @@
 {
   "name": "@daiyu-5577/yuwan-react",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "type": "module",
   "files": [
     "dist"

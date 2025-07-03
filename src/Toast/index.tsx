@@ -1,6 +1,6 @@
 import React, { type FC } from 'react'
-import Space from '../../../packages/Space'
-import Toast from '../../../packages/Toast'
+import Space from '../../packages/Space'
+import Toast from '../../packages/Toast'
 
 const Component: FC = () => {
 

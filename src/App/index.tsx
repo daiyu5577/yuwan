@@ -2,9 +2,17 @@ import { useEffect } from 'react'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/themes/prism.min.css'
-import Space, { name as SpaceName } from './Space'
-import Toast, { name as ToastName } from './Toast'
+import Space, { name as SpaceName } from '../Space'
+import Toast, { name as ToastName } from '../Toast'
+import LuckDraw, { name as LuckDrawName } from '../LuckDraw'
 import styles from './index.module.less'
+
+const hooks = [
+  {
+    name: LuckDrawName,
+    component: LuckDraw,
+  },
+]
 
 const components = [
   {
@@ -60,8 +68,22 @@ const App = () => {
         </code>
       </pre>
 
-      <h3>Components</h3>
+      <h3>Hooks</h3>
+      {
+        hooks.map((item) => {
+          return (
+            <div key={item.name}>
+              <div className='title' id={item.name}>{item.name}</div>
+              <pre className='box'>
+                <item.component />
+              </pre>
+            </div>
+          )
+        })
+      }
 
+
+      <h3>Components</h3>
       {
         components.map((item) => {
           return (

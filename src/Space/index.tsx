@@ -1,5 +1,5 @@
 import React, { type FC } from 'react'
-import Space from '../../../packages/Space'
+import Space from '../../packages/Space'
 
 const Component: FC = () => {
   return (

@@ -19,7 +19,8 @@
     "build:lib": "tsc -b && vite build --mode lib",
     "build:web": "tsc -b && vite build --mode web",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "release-it"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.27.4",
@@ -46,6 +47,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "less": "^4.3.0",
+    "release-it": "^19.0.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "unplugin-dts": "1.0.0-beta.0",

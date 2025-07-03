@@ -5,6 +5,7 @@ import 'prismjs/themes/prism.min.css'
 import Space, { name as SpaceName } from '../Space'
 import Toast, { name as ToastName } from '../Toast'
 import LuckDraw, { name as LuckDrawName } from '../LuckDraw'
+import Danmu, { name as DanmuName } from '../Danmu'
 import styles from './index.module.less'
 
 const hooks = [
@@ -15,6 +16,10 @@ const hooks = [
 ]
 
 const components = [
+  {
+    name: DanmuName,
+    component: Danmu,
+  },
   {
     name: SpaceName,
     component: Space,

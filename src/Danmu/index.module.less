@@ -1,0 +1,22 @@
+.home {
+  height: 200px;
+  border: 1px solid red;
+
+  :global {}
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+
+  :global {
+    .item-head {
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      margin-right: 5px;
+      border-radius: 50%;
+    }
+  }
+}

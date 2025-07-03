@@ -114,10 +114,10 @@ export default function Toast() {
 
   useEffect(() => {
     Toast.message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
-      message(params, 'message')
+      return message(params, 'message')
     }
     Toast.loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
-      message(params, 'loading')
+      return message(params, 'loading')
     }
     Toast.closeAll = closeAll
   }, [])
@@ -138,6 +138,10 @@ export default function Toast() {
   );
 }
 
-Toast.message = (_params: Omit<ToastInfo, 'id' | 'type'>) => { }
-Toast.loading = (_params: Omit<ToastInfo, 'id' | 'type'>) => { }
+Toast.message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+  return params?.duration === Infinity ? () => { } : undefined
+}
+Toast.loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+  return params?.duration === Infinity ? () => { } : undefined
+}
 Toast.closeAll = () => { }

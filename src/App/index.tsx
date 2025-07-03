@@ -1,25 +1,25 @@
-import { Layout, Toast, Space } from '../../packages'
-import Prism from 'prismjs'
-import 'prismjs/themes/prism.min.css'
-import styles from './index.module.less'
 import { useEffect } from 'react'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-jsx.min.js'
+import 'prismjs/themes/prism.min.css'
+import Space, { name as SpaceName } from './Space'
+import Toast, { name as ToastName } from './Toast'
+import styles from './index.module.less'
+
+const components = [
+  {
+    name: SpaceName,
+    component: Space,
+  },
+  {
+    name: ToastName,
+    component: Toast,
+  },
+]
 
 Prism.manual = true
 
 const App = () => {
-  const handleShowMessage = () => {
-    Toast.message({
-      children: <div>hellow world</div>,
-    })
-  }
-
-  const handleShowLoading = () => {
-    Toast.loading({
-      // duration: Infinity,
-      duration: 1000,
-      isDisabledClick: true
-    })
-  }
 
   useEffect(() => {
     Prism.highlightAll()
@@ -28,13 +28,13 @@ const App = () => {
   return (
     <div className={styles.app}>
       <h3>Yuwan Components</h3>
-      <div className='title'>install</div>
-      <div className='desc'>
+      <div className='title' id='install'>install</div>
+      <div className='box'>
         <code className="language-js">pnpm add @daiyu-5577/yuwan-react</code>
       </div>
-      <div className='title'>usage</div>
-      <pre className='desc'>
-        <code className="language-js">
+      <div className='title' id='usage'>usage</div>
+      <pre className='box'>
+        <code className="language-jsx">
           {`import { Layout as Yuwan, Toast } from 'yuwan-react'
 import '@daiyu-5577/yuwan-react/index.css'
 
@@ -62,26 +62,19 @@ const App = () => {
 
       <h3>Components</h3>
 
-      {/* Space */}
-      <div className='title'>Space</div>
-      <div className='desc'>
-        <Space>
-          {
-            new Array(3).fill(0).map((_v, i) => {
-              return <button className='btn atouch' key={i}>buttom</button>
-            })
-          }
-        </Space>
-      </div>
+      {
+        components.map((item) => {
+          return (
+            <div key={item.name}>
+              <div className='title' id={item.name}>{item.name}</div>
+              <pre className='box'>
+                <item.component />
+              </pre>
+            </div>
+          )
+        })
+      }
 
-      {/* Toast */}
-      <div className='title'>Toast</div>
-      <div className='desc'>
-        <Space colGap='10px' rowGap='10px'>
-          <button className='btn atouch' onClick={handleShowMessage}>message</button>
-          <button className='btn atouch' onClick={handleShowLoading}>loading</button>
-        </Space>
-      </div>
     </div>
   )
 }

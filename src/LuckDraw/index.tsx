@@ -1,5 +1,5 @@
 import React, { type FC, useEffect, useRef, useState } from 'react'
-import useLuckDraw from '../../packages/LuckDraw'
+import useLuckDraw from '../../packages/useLuckDraw'
 import Toast from '../../packages/Toast'
 import styles from "./index.module.less"
 

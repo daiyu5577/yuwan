@@ -12,13 +12,14 @@ interface DanmuWrapProps<T> {
   speed?: number // 过渡速度
   delay?: number // 延迟
   loop?: boolean // 是否循环
+  className?: string
 }
 
 // 0 未生成、1：动画中、2：已结束
 type DanmuItem<T extends object> = { id: string, trackIndex: number, el: HTMLDivElement | null, state: number, info: T }
 export default function DanmuWrap<T extends object>(props: DanmuWrapProps<T>) {
 
-  const { CompItem, list, speed = 30, delay = 500, loop = true, gapX = 10, gapY = 10, trackNum = 0, trackheight = `${1 / trackNum * 100}%` } = props
+  const { className = '', CompItem, list, speed = 30, delay = 500, loop = true, gapX = 10, gapY = 10, trackNum = 0, trackheight = `${1 / trackNum * 100}%` } = props
 
   const timer = useRef<any>(0)
   const checkIndex = useRef(0)
@@ -96,7 +97,7 @@ export default function DanmuWrap<T extends object>(props: DanmuWrapProps<T>) {
   }, [trackList])
 
   return (
-    <div ref={DanmuWrapDOM} className={styles.danmuWrap}>
+    <div ref={DanmuWrapDOM} className={`${styles.danmuWrap} ${className}`}>
       {
         trackList?.map((v, i) => (
           <div className="danmuWrap-track" style={{ marginBottom: `${gapY}px`, height: trackheight }} key={i}>

@@ -2,6 +2,12 @@
   "name": "@daiyu-5577/yuwan-react",
   "version": "1.0.2",
   "type": "module",
+  "author": {
+    "name": "daiyu",
+    "email": "843355724@qq.com"
+  },
+  "description": "yuwan react component",
+  "homepage": "https://xyuwan.pages.dev",
   "files": [
     "dist"
   ],

@@ -35,8 +35,8 @@ export default function index() {
           delay={1000}
           speed={60}
           gapX={0}
-          trackNum={2}
-          trackheight={'10vw'}
+          gapY={0}
+          trackNum={3}
         />
       </div>
       <h3>code</h3>

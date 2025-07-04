@@ -7,6 +7,18 @@
     "email": "843355724@qq.com"
   },
   "description": "yuwan react component",
+  "license": "MIT",
+  "keywords": [
+    "yuwan",
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "react",
+    "react-component",
+    "ui"
+  ],
   "homepage": "https://xyuwan.pages.dev",
   "files": [
     "dist"

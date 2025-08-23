@@ -38,6 +38,7 @@ export default function StackModal(props: Props) {
     const onClickMaskDom = () => {
       if (params?.isClickMaskHide) {
         close(id)
+        params?.onClickMask?.()
         return
       }
       params?.onClickMask?.()

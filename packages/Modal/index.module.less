@@ -1,0 +1,31 @@
+@import url(../css/animation.less);
+
+.itemModal {
+  display: flex;
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  :global {
+    .itemModalCnt {
+      :local {
+        animation: toast-show var(--tost-duration) var(--animation-timing-function);
+      }
+    }
+
+    .itemModalCnt-close {
+      pointer-events: none;
+
+      :local {
+        animation: toast-hiden var(--tost-duration) var(--animation-timing-function) forwards;
+      }
+    }
+  }
+}

@@ -35,7 +35,7 @@
       z-index: 999;
 
       &:local {
-        animation: toast-show var(--tost-duration) cubic-bezier(0.8, -0.2, 0.1, 1.6);
+        animation: toast-show var(--tost-duration) var(--animation-timing-function);
       }
 
       .yw-toast-loading {
@@ -55,7 +55,7 @@
 
     .yw-toast-hidden {
       &:local {
-        animation: toast-hiden var(--tost-duration) cubic-bezier(0.8, -0.2, 0.1, 1.6) forwards;
+        animation: toast-hiden var(--tost-duration) var(--animation-timing-function) forwards;
       }
     }
   }

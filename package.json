@@ -38,7 +38,8 @@
     "build:web": "tsc -b && vite build --mode web",
     "lint": "eslint .",
     "preview": "vite preview",
-    "release": "release-it"
+    "release": "release-it",
+    "publish": "npm publish --access public"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.27.4",

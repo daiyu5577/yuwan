@@ -114,7 +114,7 @@ const App = () => {
 ##### Toast
 * Methods
   * message
-    * (params: ShowToasProps) => string
+    * (params: ShowToasProps | string) => string
     * [ShowToasProps](#ShowToasProps)
   * loading
     * (params: ShowToasProps) => string

@@ -4,7 +4,7 @@ import classnames from "classnames"
 import { generateUid } from '../utils/index'
 import styles from './index.module.less'
 
-interface ShowToasProps {
+type ShowToastProps = {
   className?: string
   children?: React.ReactNode
   duration?: number
@@ -12,7 +12,7 @@ interface ShowToasProps {
   isMackClick?: boolean
 }
 
-interface ToastItemProps extends ShowToasProps {
+type ToastItemProps = ShowToastProps & {
   id: string
   type: 'message' | 'loading'
   isShow: boolean
@@ -100,7 +100,7 @@ export default function Toast() {
   const countRef = useRef(1)
   const [list, setList] = useState<(ToastItemProps)[]>([])
 
-  const message = (params: ShowToasProps, type: 'message' | 'loading') => {
+  const message = (params: ShowToastProps, type: 'message' | 'loading') => {
     const { duration = 1000 } = params
     const id = generateUid(`toast_${countRef.current}`)
     const toastItemProps: ToastItemProps = {
@@ -133,10 +133,10 @@ export default function Toast() {
   }
 
   useEffect(() => {
-    Toast.message = (params: ShowToasProps) => {
-      return message(params, 'message')
+    Toast.message = (params: ShowToastProps | string) => {
+      return message(typeof params === 'string' ? { children: params } : params, 'message')
     }
-    Toast.loading = (params: ShowToasProps) => {
+    Toast.loading = (params: ShowToastProps) => {
       return message(params, 'loading')
     }
     Toast.hide = hide
@@ -160,11 +160,11 @@ export default function Toast() {
   );
 }
 
-Toast.message = (params: ShowToasProps) => {
+Toast.message = (params: ShowToastProps | string) => {
   return { id: generateUid(), close: () => { } }
 }
 
-Toast.loading = (params: ShowToasProps) => {
+Toast.loading = (params: ShowToastProps) => {
   return { id: generateUid(), close: () => { } }
 }
 

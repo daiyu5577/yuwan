@@ -56,6 +56,7 @@ const Component: FC = () => {
   <button
     className='btn atouch'
     onClick={() => {
+      // Toast.message('hellow world')
       Toast.loading({
         duration: 1000,
         isMackClick: true

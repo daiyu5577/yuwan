@@ -11,7 +11,7 @@
     - [Danmu](#danmu)
     - [Toast](#toast)
   - [Types](#types)
-    - [ToastParams](#toastparams)
+    - [ShowToasProps](#showtoasprops)
     - [SpaceProps](#spaceprops)
     - [DanmuProps](#danmuprops)
     - [useLuckDrawProps](#useluckdrawprops)
@@ -35,7 +35,7 @@ const App = () => {
   const handleShowLoading = () => {
     Toast.loading({
       duration: Infinity,
-      isDisabledClick: true
+      isMackClick: true
     })
   }
   return (
@@ -112,19 +112,25 @@ const App = () => {
 ##### Toast
 * Methods
   * message
-    * [ToastParams](#ToastParams)
+    * (params: ShowToasProps) => string
+    * [ShowToasProps](#ShowToasProps)
   * loading
-    * [ToastParams](#ToastParams)
-  * closeAll
+    * (params: ShowToasProps) => string
+    * [ShowToasProps](#ShowToasProps)
+  * hide
+    * (id: string) => void
+  * hideAll
+    * () => void
 
 
 #### Types
 
-##### ToastParams
-  * children?: ReactNode
+##### ShowToasProps
+  * className?: string
+  * children?: React.ReactNode
   * duration?: number
   * isShowMask?: boolean
-  * isDisabledClick?: boolean  
+  * isMackClick?: boolean
 
 ##### SpaceProps
   * wrap?: boolean

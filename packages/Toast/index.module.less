@@ -6,15 +6,20 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: transparent;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  &:global.yw-mask-hidden {
-    background-color: unset;
-    pointer-events: none;
+  &:global.yw-mask-show {
+    background-color: rgba(0, 0, 0, 0.3);
+    pointer-events: auto;
   }
 
-  &:global.yw-mask-disabled {
-    pointer-events: unset;
+  &:global.yw-mask-click {
+    pointer-events: auto;
   }
 
   &:local {
@@ -23,10 +28,6 @@
 
   :global {
     .yw-toast {
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translateX(-50%);
       padding: 5px 10px;
       background-color: rgba(0, 0, 0, 0.7);
       color: #fff;
@@ -34,7 +35,7 @@
       z-index: 999;
 
       &:local {
-        animation: toast-show var(--tost-duration) ease-out;
+        animation: toast-show var(--tost-duration) cubic-bezier(0.8, -0.2, 0.1, 1.6);
       }
 
       .yw-toast-loading {
@@ -54,7 +55,7 @@
 
     .yw-toast-hidden {
       &:local {
-        animation: toast-hiden var(--tost-duration) ease-out forwards;
+        animation: toast-hiden var(--tost-duration) cubic-bezier(0.8, -0.2, 0.1, 1.6) forwards;
       }
     }
   }

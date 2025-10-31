@@ -23,23 +23,23 @@
 @keyframes toast-show {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.9);
+    transform: scale(0.4) translate3d(0, 0, 0);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 
 @keyframes toast-hiden {
   0% {
     opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.9);
+    transform: translateY(50%) scale(0.8);
   }
 }

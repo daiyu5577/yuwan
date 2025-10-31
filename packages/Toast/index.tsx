@@ -4,18 +4,19 @@ import classnames from "classnames"
 import { generateUid } from '../utils/index'
 import styles from './index.module.less'
 
-interface ToastInfo {
-  id: string
-  type: 'message' | 'loading'
+interface ShowToasProps {
+  className?: string
   children?: React.ReactNode
   duration?: number
   isShowMask?: boolean
-  isDisabledClick?: boolean
+  isMackClick?: boolean
 }
 
-interface ToastItemParams {
-  toastInfo: ToastInfo
-  setList: React.Dispatch<React.SetStateAction<ToastInfo[]>>
+interface ToastItemProps extends ShowToasProps {
+  id: string
+  type: 'message' | 'loading'
+  isShow: boolean
+  close: () => void
 }
 
 export const SvgLoading = (params: { width?: number, height?: number, stroke?: string, strokeWidth?: number }) => {
@@ -34,49 +35,60 @@ export const SvgLoading = (params: { width?: number, height?: number, stroke?: s
 }
 
 
-function ToastItem(params: ToastItemParams) {
+function ToastItem(params: ToastItemProps) {
 
-  const { toastInfo, setList } = params
+  const { id, type, className, children, duration = 1000, isShow, isShowMask = false, isMackClick = false, close } = params
 
   const timer = useRef<any>(0)
 
   const itemDom = useRef<HTMLDivElement>(null)
 
-  const [isHiden, setIsHiden] = useState(false)
-
   useEffect(() => {
-    if (toastInfo.duration != Infinity) {
+    if (duration != Infinity) {
       timer.current = setTimeout(() => {
-        setIsHiden(true)
-        itemDom.current?.addEventListener('animationend', () => {
-          setList((list) => {
-            return list.filter((v) => v.id !== toastInfo.id)
-          })
-        })
-      }, toastInfo.duration as number)
+        close()
+      }, duration as number)
     }
-
     return () => {
       clearTimeout(timer.current)
     }
   }, [])
 
+  useEffect(() => {
+    const fn = () => {
+      !isShow && Toast.spliceItem(id)
+    }
+    itemDom.current?.addEventListener('animationend', fn)
+    return () => {
+      itemDom.current?.removeEventListener('animationend', fn)
+    }
+  }, [isShow])
+
   return (
     <div className={classnames(
       `${styles.mask}`,
+      className,
       {
-        'yw-mask-hidden': !toastInfo?.isShowMask,
-        'yw-mask-disabled': !!toastInfo?.isDisabledClick
+        'yw-mask-show': isShowMask,
+        'yw-mask-click': isMackClick
       })}>
-      <div ref={itemDom} className={`yw-toast ${isHiden ? `yw-toast-hidden` : ''}`}>
+      <div
+        ref={itemDom}
+        className={classnames(
+          'yw-toast',
+          {
+            'yw-toast-hidden': !isShow
+          }
+        )}
+      >
         {
-          toastInfo?.type == 'loading' ?
-            !!toastInfo?.children ?
-              toastInfo.children :
+          type == 'loading' ?
+            !!children ?
+              children :
               <div className="yw-toast-loading">
                 <SvgLoading />
               </div> :
-            toastInfo.children || <></>
+            children || <></>
         }
       </div>
     </div>
@@ -85,41 +97,51 @@ function ToastItem(params: ToastItemParams) {
 
 export default function Toast() {
 
-  const [list, setList] = useState<(ToastInfo)[]>([])
+  const countRef = useRef(1)
+  const [list, setList] = useState<(ToastItemProps)[]>([])
 
-  // message
-  const message = (params: Omit<ToastInfo, 'id' | 'type'>, type: 'message' | 'loading') => {
+  const message = (params: ShowToasProps, type: 'message' | 'loading') => {
     const { duration = 1000 } = params
-    const id = generateUid('toast')
-    const close = () => {
-      setList((list) => {
-        return list.filter((v) => v.id !== id)
-      })
+    const id = generateUid(`toast_${countRef.current}`)
+    const toastItemProps: ToastItemProps = {
+      ...params,
+      duration,
+      type,
+      id,
+      close() {
+        toastItemProps.isShow = false
+        setList(v => [...v])
+      },
+      isShow: true
     }
-    setList((list) => {
-      return [...list, {
-        ...params,
-        duration,
-        type,
-        id,
-      }]
-    })
-    if (duration == Infinity) return close
+    setList(v => [...v, toastItemProps])
+    countRef.current += 1
+    return { id, close: toastItemProps.close }
   }
 
-  // closeAll
-  const closeAll = () => {
-    setList([])
+  const hide = (id: string) => {
+    const cur = list.find(v => v.id === id)
+    !!cur && cur.close()
+  }
+
+  const hideAll = () => {
+    list.forEach(v => v.close())
+  }
+
+  const spliceItem = (id: string) => {
+    setList(v => v.filter(v => v.id !== id))
   }
 
   useEffect(() => {
-    Toast.message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+    Toast.message = (params: ShowToasProps) => {
       return message(params, 'message')
     }
-    Toast.loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
+    Toast.loading = (params: ShowToasProps) => {
       return message(params, 'loading')
     }
-    Toast.closeAll = closeAll
+    Toast.hide = hide
+    Toast.hideAll = hideAll
+    Toast.spliceItem = spliceItem
   }, [])
 
 
@@ -128,9 +150,9 @@ export default function Toast() {
       {
         list.map(v => (
           <ToastItem
-            toastInfo={v}
-            setList={setList}
-            key={v?.id} />
+            key={v?.id}
+            {...v}
+          />
         ))
       }
     </React.Fragment>,
@@ -138,10 +160,16 @@ export default function Toast() {
   );
 }
 
-Toast.message = (params: Omit<ToastInfo, 'id' | 'type'>) => {
-  return params?.duration === Infinity ? () => { } : undefined
+Toast.message = (params: ShowToasProps) => {
+  return { id: generateUid(), close: () => { } }
 }
-Toast.loading = (params: Omit<ToastInfo, 'id' | 'type'>) => {
-  return params?.duration === Infinity ? () => { } : undefined
+
+Toast.loading = (params: ShowToasProps) => {
+  return { id: generateUid(), close: () => { } }
 }
-Toast.closeAll = () => { }
+
+Toast.hide = (id: string) => { }
+
+Toast.hideAll = () => { }
+
+Toast.spliceItem = (id: string) => { }

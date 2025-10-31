@@ -22,7 +22,7 @@ const Component: FC = () => {
           onClick={() => {
             Toast.loading({
               duration: 1000,
-              isDisabledClick: true
+              isMackClick: true
             })
           }}>
           loading
@@ -30,11 +30,11 @@ const Component: FC = () => {
         <button
           className='btn atouch'
           onClick={() => {
-            const close = Toast.message({
+            const res = Toast.message({
               duration: Infinity,
               isShowMask: true,
-              isDisabledClick: true,
-              children: <div onClick={() => close?.()}>Click me to close!</div>,
+              isMackClick: true,
+              children: <div onClick={() => res?.close()}>Click me to close!</div>,
             })
           }}>
           Infinity
@@ -58,7 +58,7 @@ const Component: FC = () => {
     onClick={() => {
       Toast.loading({
         duration: 1000,
-        isDisabledClick: true
+        isMackClick: true
       })
     }}>
     loading
@@ -69,7 +69,7 @@ const Component: FC = () => {
       const close = Toast.message({
         duration: Infinity,
         isShowMask: true,
-        isDisabledClick: true,
+        isMackClick: true,
         children: <div onClick={() => close?.()}>Click me to close!</div>,
       })
     }}>

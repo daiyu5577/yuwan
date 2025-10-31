@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect, createContext, useContext } from "react";
 import Toast from "../Toast";
-import StackModal from "../StackModal";
 import useModal from "../Modal";
 
-const Modal = useModal()
+export const Modal = useModal()
 export interface Themes {
   '--tost-duration': string
   '--animation-timing-function': string
@@ -60,7 +59,6 @@ const Layout = (props: LayoutProps) => {
       {!isReload && children}
       <Toast />
       <Modal />
-      <StackModal />
       <style>{`:root { ${styles} }`}</style>
     </LayoutContext.Provider>
   );

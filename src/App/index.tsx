@@ -4,6 +4,7 @@ import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/themes/prism.min.css'
 import Space, { name as SpaceName } from '../Space'
 import Toast, { name as ToastName } from '../Toast'
+import Modal, { name as ModalName } from '../Modal'
 import LuckDraw, { name as LuckDrawName } from '../LuckDraw'
 import Danmu, { name as DanmuName } from '../Danmu'
 import styles from './index.module.less'
@@ -27,6 +28,10 @@ const components = [
   {
     name: ToastName,
     component: Toast,
+  },
+  {
+    name: ModalName,
+    component: Modal,
   },
 ]
 

@@ -1,16 +1,14 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import { createPortal } from 'react-dom';
+import { generateUid } from '../utils/index'
 import style from './index.module.less'
-
-const getModalId = (prefix = '') => {
-  return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2)}`
-}
 
 type ShowModalProps = {
   children: React.ReactNode
   className?: string
   otherStyle?: React.CSSProperties
   isClickMaskClose?: boolean
+  onClickMask?: () => void
 }
 type ModalItemProps = ShowModalProps & {
   id: string
@@ -29,6 +27,7 @@ export default function useModal() {
       otherStyle,
       className = '',
       close,
+      onClickMask,
       isShow
     } = props
 
@@ -38,6 +37,7 @@ export default function useModal() {
         className={`${style.itemModal} ${className}`}
         style={{ ...otherStyle }}
         onClick={() => {
+          onClickMask?.()
           isClickMaskClose && close()
         }}
       >
@@ -60,7 +60,7 @@ export default function useModal() {
     const [list, setList] = useState<(ModalItemProps)[]>([])
 
     const show = (props: ShowModalProps) => {
-      const id = getModalId(`itemModal_${countRef.current}`)
+      const id = generateUid(`itemModal_${countRef.current}`)
       const modalItemProps: ModalItemProps = {
         ...props,
         id,
@@ -114,7 +114,7 @@ export default function useModal() {
   }
 
   Modal.show = (props: ShowModalProps) => {
-    return { id: getModalId(), close: () => { } }
+    return { id: generateUid(), close: () => { } }
   }
 
   Modal.hide = (id: string) => { }

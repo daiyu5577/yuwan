@@ -10,11 +10,13 @@
     - [Space](#space)
     - [Danmu](#danmu)
     - [Toast](#toast)
+    - [Modal](#modal)
   - [Types](#types)
     - [ShowToasProps](#showtoasprops)
     - [SpaceProps](#spaceprops)
     - [DanmuProps](#danmuprops)
     - [useLuckDrawProps](#useluckdrawprops)
+    - [ShowModalProps](#showmodalprops)
 
 #### install
 ```javascript
@@ -68,7 +70,7 @@ const { run } = useLuckDraw({
 ##### Layout
 ```javascript
 import { App } from './App'
-import { Layout as Yuwan } from 'yuwan-react'
+import { Layout as Yuwan, Modal } from 'yuwan-react'
 import '@daiyu-5577/yuwan-react/index.css'
 
 const App = () => {
@@ -122,6 +124,15 @@ const App = () => {
   * hideAll
     * () => void
 
+##### Modal
+* Methods
+  * show
+    * (params: ShowModalProps) => string
+    * [ShowModalProps](#ShowModalProps)
+  * hide
+    * (id: string) => void
+
+
 
 #### Types
 
@@ -162,4 +173,8 @@ const App = () => {
   * onUpdate: (index: number) => void
   * onEnd: (index: number) => void
 
-
+##### ShowModalProps
+  * children: React.ReactNode
+  * className?: string
+  * otherStyle?: React.CSSProperties
+  * isClickMaskClose?: boolean

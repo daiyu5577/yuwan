@@ -1,5 +1,5 @@
 import './index.less'
-export { default as Layout, useLayout } from './Layout'
+export { default as Layout, useLayout, Modal } from './Layout'
 export { default as Toast, SvgLoading } from './Toast'
 export { default as useModal } from './Modal'
 export { default as Space } from './Space'

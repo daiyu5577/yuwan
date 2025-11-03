@@ -9,7 +9,7 @@ type ShowToastProps = {
   children?: React.ReactNode
   duration?: number
   isShowMask?: boolean
-  isMackClick?: boolean
+  isMaskClick?: boolean
 }
 
 type ToastItemProps = ShowToastProps & {
@@ -37,7 +37,7 @@ export const SvgLoading = (params: { width?: number, height?: number, stroke?: s
 
 function ToastItem(params: ToastItemProps) {
 
-  const { id, type, className, children, duration = 1000, isShow, isShowMask = false, isMackClick = false, close } = params
+  const { id, type, className, children, duration = 1000, isShow, isShowMask = false, isMaskClick = false, close } = params
 
   const timer = useRef<any>(0)
 
@@ -70,7 +70,7 @@ function ToastItem(params: ToastItemProps) {
       className,
       {
         'yw-mask-show': isShowMask,
-        'yw-mask-click': isMackClick
+        'yw-mask-click': isMaskClick
       })}>
       <div
         ref={itemDom}

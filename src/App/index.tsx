@@ -65,7 +65,7 @@ const App = () => {
   const handleShowLoading = () => {
     Toast.loading({
       duration: Infinity,
-      isMackClick: true
+      isMaskClick: true
     })
   }
   return (

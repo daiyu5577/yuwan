@@ -37,7 +37,7 @@ const App = () => {
   const handleShowLoading = () => {
     Toast.loading({
       duration: Infinity,
-      isMackClick: true
+      isMaskClick: true
     })
   }
   return (
@@ -141,7 +141,7 @@ const App = () => {
   * children?: React.ReactNode
   * duration?: number
   * isShowMask?: boolean
-  * isMackClick?: boolean
+  * isMaskClick?: boolean
 
 ##### SpaceProps
   * wrap?: boolean

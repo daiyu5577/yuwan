@@ -22,7 +22,7 @@ const Component: FC = () => {
           onClick={() => {
             Toast.loading({
               duration: 1000,
-              isMackClick: true
+              isMaskClick: true
             })
           }}>
           loading
@@ -33,7 +33,7 @@ const Component: FC = () => {
             const res = Toast.message({
               duration: Infinity,
               isShowMask: true,
-              isMackClick: true,
+              isMaskClick: true,
               children: <div onClick={() => res?.close()}>Click me to close!</div>,
             })
           }}>
@@ -59,7 +59,7 @@ const Component: FC = () => {
       // Toast.message('hellow world')
       Toast.loading({
         duration: 1000,
-        isMackClick: true
+        isMaskClick: true
       })
     }}>
     loading
@@ -70,7 +70,7 @@ const Component: FC = () => {
       const close = Toast.message({
         duration: Infinity,
         isShowMask: true,
-        isMackClick: true,
+        isMaskClick: true,
         children: <div onClick={() => close?.()}>Click me to close!</div>,
       })
     }}>

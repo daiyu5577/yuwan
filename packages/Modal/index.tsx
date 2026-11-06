@@ -9,6 +9,7 @@ type ShowModalProps = {
   otherStyle?: React.CSSProperties
   isClickMaskClose?: boolean
   onClickMask?: () => void
+  onClose?: () => void
 }
 type ModalItemProps = ShowModalProps & {
   id: string
@@ -66,6 +67,7 @@ export default function useModal() {
         id,
         close() {
           modalItemProps.isShow = false
+          modalItemProps.onClose?.()
           setList(v => [...v])
         },
         isShow: true

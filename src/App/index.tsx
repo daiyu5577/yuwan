@@ -7,6 +7,7 @@ import Toast, { name as ToastName } from '../Toast'
 import Modal, { name as ModalName } from '../Modal'
 import LuckDraw, { name as LuckDrawName } from '../LuckDraw'
 import Danmu, { name as DanmuName } from '../Danmu'
+import Carousel, { name as CarouselName } from '../Carousel'
 import styles from './index.module.less'
 
 const hooks = [
@@ -20,6 +21,10 @@ const components = [
   {
     name: DanmuName,
     component: Danmu,
+  },
+  {
+    name: CarouselName,
+    component: Carousel,
   },
   {
     name: SpaceName,
